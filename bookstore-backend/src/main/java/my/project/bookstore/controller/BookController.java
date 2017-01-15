@@ -2,10 +2,7 @@ package my.project.bookstore.controller;
 
 import my.project.bookstore.Constants;
 import my.project.bookstore.model.Book;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
  * Created by zaychick-pavel on 1/12/17.
  */
 @RestController
+@CrossOrigin()
 @RequestMapping("/book")
 public class BookController {
 
