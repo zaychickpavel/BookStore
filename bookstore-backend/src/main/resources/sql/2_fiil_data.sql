@@ -1,0 +1,8 @@
+
+
+INSERT INTO BOOK (name) VALUES ('book1');
+INSERT INTO BOOK (name) VALUES ('book2');
+INSERT INTO BOOK (name) VALUES ('book3');
+INSERT INTO BOOK (name) VALUES ('book4');
+
+COMMIT;
