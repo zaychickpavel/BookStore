@@ -16,12 +16,14 @@
 	<profiles>
 		<profile>
 			<id>local</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<profile>local</profile>
-				<datasource.url>jdbc:sqlite:${basedir}/src/main/resources/bookstore.db</datasource.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profile>test</profile>
 			</properties>
 		</profile>
 	</profiles>
@@ -58,6 +60,12 @@
 
 	<build>
 		<finalName>bookstore</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
