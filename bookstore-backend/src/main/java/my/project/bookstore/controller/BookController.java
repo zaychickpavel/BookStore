@@ -1,6 +1,6 @@
 package my.project.bookstore.controller;
 
-import my.project.bookstore.dao.BookDAO;
+import my.project.bookstore.repositories.BookRepository;
 import my.project.bookstore.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +22,7 @@ import java.util.List;
 public class BookController {
 
 	@Autowired
-	BookDAO books;
+	BookRepository books;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Book> getAll() {

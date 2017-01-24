@@ -1,4 +1,4 @@
-package my.project.bookstore.dao;
+package my.project.bookstore.repositories;
 
 import my.project.bookstore.entities.Book;
 import org.springframework.data.repository.CrudRepository;
@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by zaychick-pavel on 1/17/17.
  */
-public interface BookDAO extends CrudRepository<Book, Integer> {
+public interface BookRepository extends CrudRepository<Book, Integer> {
 }
