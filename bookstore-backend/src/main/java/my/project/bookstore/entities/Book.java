@@ -1,11 +1,6 @@
 package my.project.bookstore.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Arrays;
 
 /**
@@ -39,6 +34,10 @@ public class Book {
 
 	@Column(name = "image")
 	private byte[] image;
+
+	@ManyToOne
+	@JoinColumn(name = "publisher_id")
+	private Publisher publisher;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +101,14 @@ public class Book {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	@Override

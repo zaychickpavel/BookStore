@@ -3,6 +3,7 @@ package my.project.bookstore;
 import my.project.BookstoreApplication;
 import my.project.bookstore.entities.Book;
 import my.project.bookstore.repositories.BookRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +28,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -77,7 +77,7 @@ public class BookControllerTest {
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-//		this.books.deleteAll();
+		this.books.deleteAll();
 
 		Book book = new Book();
 		book.setId(1);
@@ -110,21 +110,7 @@ public class BookControllerTest {
 					.andExpect(status().isNotFound());
 		}
 	*/
-	@Test
-	public void getBook() throws Exception {
-		mockMvc.perform(get("/book/"
-				+ this.bookList.get(0).getId()))
-				.andExpect(status().isOk())
-				.andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.id", is(this.bookList.get(0).getId())))
-				.andExpect(jsonPath("$.name", is("Book 1")))
-				.andExpect(jsonPath("$.originalName", is("OriginalName 1")))
-				.andExpect(jsonPath("$.description", is("Description 1")))
-				.andExpect(jsonPath("$.isbn", is("Isbn 1")))
-				.andExpect(jsonPath("$.numberOfPages", is(100)))
-				.andExpect(jsonPath("$.publishingYear", is(2000)))
-		;
-	}
+
 
 	@Test
 	public void getAllBooks() throws Exception {
@@ -146,6 +132,24 @@ public class BookControllerTest {
 				.andExpect(jsonPath("$[1].isbn", is("Isbn 2")))
 				.andExpect(jsonPath("$[1].numberOfPages", is(200)))
 				.andExpect(jsonPath("$[1].publishingYear", is(1950)))
+		;
+	}
+
+
+
+	@Test
+	public void getBook() throws Exception {
+		mockMvc.perform(get("/book/"
+				+ this.bookList.get(0).getId()))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.id", is(this.bookList.get(0).getId())))
+				.andExpect(jsonPath("$.name", is("Book 1")))
+				.andExpect(jsonPath("$.originalName", is("OriginalName 1")))
+				.andExpect(jsonPath("$.description", is("Description 1")))
+				.andExpect(jsonPath("$.isbn", is("Isbn 1")))
+				.andExpect(jsonPath("$.numberOfPages", is(100)))
+				.andExpect(jsonPath("$.publishingYear", is(2000)))
 		;
 	}
 
@@ -173,6 +177,41 @@ public class BookControllerTest {
 				.andExpect(jsonPath("$.publishingYear", is(1960)))
 		;
 	}
+
+	@Test
+	public void updateBook() throws Exception {
+		Book book = new Book();
+		book.setName("Update Book");
+		book.setOriginalName("Update OriginalName");
+		book.setDescription("Update Description");
+		book.setIsbn("Update Isbn");
+		book.setNumberOfPages(111);
+		book.setPublishingYear(2222);
+
+		mockMvc.perform(put("/book/1").contentType(contentType)
+				.content(json(book)))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.id", is(1)))
+				.andExpect(jsonPath("$.name", is("Update Book")))
+				.andExpect(jsonPath("$.originalName", is("Update OriginalName")))
+				.andExpect(jsonPath("$.description", is("Update Description")))
+				.andExpect(jsonPath("$.isbn", is("Update Isbn")))
+				.andExpect(jsonPath("$.numberOfPages", is(111)))
+				.andExpect(jsonPath("$.publishingYear", is(2222)))
+		;
+	}
+
+
+	@Test
+	public void deleteBook() throws Exception {
+		mockMvc.perform(delete("/book/1"))
+				.andExpect(status().isOk())
+		;
+		Assert.assertNull(books.findOne(1));
+	}
+
+
 
 	/*
 		@Test
