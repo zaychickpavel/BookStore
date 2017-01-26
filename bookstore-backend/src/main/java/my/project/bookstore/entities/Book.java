@@ -1,7 +1,17 @@
 package my.project.bookstore.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by zaychick-pavel on 1/17/17.
@@ -38,6 +48,18 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name = "publisher_id")
 	private Publisher publisher;
+
+	@ManyToMany
+	@JoinTable(name = "BOOK_AUTHOR",
+			joinColumns = @JoinColumn(name = "book_id"),
+			inverseJoinColumns = @JoinColumn(name = "author_id"))
+	private List<Author> authors;
+
+	@ManyToMany
+	@JoinTable(name = "BOOK_GENRE",
+			joinColumns = @JoinColumn(name = "book_id"),
+			inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	private List<Genre> genres;
 
 	public Integer getId() {
 		return id;
@@ -109,6 +131,22 @@ public class Book {
 
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
+	}
+
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	}
 
 	@Override

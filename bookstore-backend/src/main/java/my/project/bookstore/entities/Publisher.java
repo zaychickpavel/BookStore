@@ -1,5 +1,7 @@
 package my.project.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class Publisher {
 	@Column(name = "image")
 	private byte[] image;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "publisher")
 	private List<Book> books;
 

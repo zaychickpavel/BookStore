@@ -1,8 +1,8 @@
 package my.project.bookstore;
 
 import my.project.BookstoreApplication;
-import my.project.bookstore.entities.Book;
-import my.project.bookstore.repositories.BookRepository;
+import my.project.bookstore.entities.Author;
+import my.project.bookstore.repositories.AuthorRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,10 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,7 +44,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringApplicationConfiguration(classes = BookstoreApplication.class)
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:test.properties")
-public class BookControllerTest {
+public class AuthorControllerTest {
 
 
 	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
@@ -52,10 +55,10 @@ public class BookControllerTest {
 
 	private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-	private List<Book> bookList = new ArrayList<>();
+	private List<Author> authorList = new ArrayList<>();
 
 	@Autowired
-	private BookRepository books;
+	private AuthorRepository authors;
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
@@ -77,139 +80,91 @@ public class BookControllerTest {
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-		this.books.deleteAll();
+		this.authors.deleteAll();
 
-		Book book = new Book();
-		book.setId(1);
-		book.setName("Book 1");
-		book.setOriginalName("OriginalName 1");
-		book.setDescription("Description 1");
-		book.setIsbn("Isbn 1");
-		book.setNumberOfPages(100);
-		book.setPublishingYear(2000);
-		this.bookList.add(books.save(book));
+		Author author = new Author();
+		author.setName("Author 1");
+		author.setDescription("Description 1");
+		this.authorList.add(authors.save(author));
 
-		book = new Book();
-		book.setId(2);
-		book.setName("Book 2");
-		book.setOriginalName("OriginalName 2");
-		book.setDescription("Description 2");
-		book.setIsbn("Isbn 2");
-		book.setNumberOfPages(200);
-		book.setPublishingYear(1950);
-		this.bookList.add(books.save(book));
+		author = new Author();
+		author.setName("Author 2");
+		author.setDescription("Description 2");
+		this.authorList.add(authors.save(author));
 
 	}
 
-	/*
-		@Test
-		public void userNotFound() throws Exception {
-			mockMvc.perform(post("/george/bookmarks/")
-					.content(this.json(new Book()))
-					.contentType(contentType))
-					.andExpect(status().isNotFound());
-		}
-	*/
-
 
 	@Test
-	public void getAllBooks() throws Exception {
-		mockMvc.perform(get("/book/"))
+	public void getAllAuthors() throws Exception {
+		mockMvc.perform(get("/author/"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$", hasSize(2)))
-				.andExpect(jsonPath("$[0].id", is(this.bookList.get(0).getId())))
-				.andExpect(jsonPath("$[0].name", is("Book 1")))
-				.andExpect(jsonPath("$[0].originalName", is("OriginalName 1")))
+				.andExpect(jsonPath("$[0].id", is(this.authorList.get(0).getId())))
+				.andExpect(jsonPath("$[0].name", is("Author 1")))
 				.andExpect(jsonPath("$[0].description", is("Description 1")))
-				.andExpect(jsonPath("$[0].isbn", is("Isbn 1")))
-				.andExpect(jsonPath("$[0].numberOfPages", is(100)))
-				.andExpect(jsonPath("$[0].publishingYear", is(2000)))
-				.andExpect(jsonPath("$[1].id", is(this.bookList.get(1).getId())))
-				.andExpect(jsonPath("$[1].name", is("Book 2")))
-				.andExpect(jsonPath("$[1].originalName", is("OriginalName 2")))
+				.andExpect(jsonPath("$[1].id", is(this.authorList.get(1).getId())))
+				.andExpect(jsonPath("$[1].name", is("Author 2")))
 				.andExpect(jsonPath("$[1].description", is("Description 2")))
-				.andExpect(jsonPath("$[1].isbn", is("Isbn 2")))
-				.andExpect(jsonPath("$[1].numberOfPages", is(200)))
-				.andExpect(jsonPath("$[1].publishingYear", is(1950)))
 		;
 	}
 
 
 
 	@Test
-	public void getBook() throws Exception {
-		mockMvc.perform(get("/book/"
-				+ this.bookList.get(0).getId()))
+	public void getAuthor() throws Exception {
+		mockMvc.perform(get("/author/"
+				+ this.authorList.get(0).getId()))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.id", is(this.bookList.get(0).getId())))
-				.andExpect(jsonPath("$.name", is("Book 1")))
-				.andExpect(jsonPath("$.originalName", is("OriginalName 1")))
+				.andExpect(jsonPath("$.id", is(this.authorList.get(0).getId())))
+				.andExpect(jsonPath("$.name", is("Author 1")))
 				.andExpect(jsonPath("$.description", is("Description 1")))
-				.andExpect(jsonPath("$.isbn", is("Isbn 1")))
-				.andExpect(jsonPath("$.numberOfPages", is(100)))
-				.andExpect(jsonPath("$.publishingYear", is(2000)))
 		;
 	}
 
 	@Test
-	public void createBook() throws Exception {
-		Book book = new Book();
-		book.setId(3);
-		book.setName("New Book");
-		book.setOriginalName("New OriginalName");
-		book.setDescription("New Description");
-		book.setIsbn("New Isbn");
-		book.setNumberOfPages(300);
-		book.setPublishingYear(1960);
+	public void createAuthor() throws Exception {
+		Author author = new Author();
+		author.setName("New Author");
+		author.setDescription("New Description");
 
-		mockMvc.perform(post("/book/").contentType(contentType)
-				.content(json(book)))
+		mockMvc.perform(post("/author/").contentType(contentType)
+				.content(json(author)))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.id", is(3)))
-				.andExpect(jsonPath("$.name", is("New Book")))
-				.andExpect(jsonPath("$.originalName", is("New OriginalName")))
+				.andExpect(jsonPath("$.name", is("New Author")))
 				.andExpect(jsonPath("$.description", is("New Description")))
-				.andExpect(jsonPath("$.isbn", is("New Isbn")))
-				.andExpect(jsonPath("$.numberOfPages", is(300)))
-				.andExpect(jsonPath("$.publishingYear", is(1960)))
 		;
 	}
 
 	@Test
-	public void updateBook() throws Exception {
-		Book book = new Book();
-		book.setName("Update Book");
-		book.setOriginalName("Update OriginalName");
-		book.setDescription("Update Description");
-		book.setIsbn("Update Isbn");
-		book.setNumberOfPages(111);
-		book.setPublishingYear(2222);
+	public void updateAuthor() throws Exception {
+		Author author = new Author();
+		author.setName("Update Author");
+		author.setDescription("Update Description");
 
-		mockMvc.perform(put("/book/1").contentType(contentType)
-				.content(json(book)))
+		mockMvc.perform(put("/author/1").contentType(contentType)
+				.content(json(author)))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.id", is(1)))
-				.andExpect(jsonPath("$.name", is("Update Book")))
-				.andExpect(jsonPath("$.originalName", is("Update OriginalName")))
+				.andExpect(jsonPath("$.name", is("Update Author")))
 				.andExpect(jsonPath("$.description", is("Update Description")))
-				.andExpect(jsonPath("$.isbn", is("Update Isbn")))
-				.andExpect(jsonPath("$.numberOfPages", is(111)))
-				.andExpect(jsonPath("$.publishingYear", is(2222)))
 		;
 	}
 
 
 	@Test
-	public void deleteBook() throws Exception {
-		mockMvc.perform(delete("/book/1"))
+	public void deleteAuthor() throws Exception {
+		mockMvc.perform(delete("/author/1"))
 				.andExpect(status().isOk())
 		;
-		Assert.assertNull(books.findOne(1));
+		Assert.assertNull(authors.findOne(1));
 	}
+
 
 	protected String json(Object o) throws IOException {
 		MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();

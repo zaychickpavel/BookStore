@@ -56,6 +56,10 @@ public class BookController {
 		update.setNumberOfPages(book.getNumberOfPages());
 		update.setPublishingYear(book.getPublishingYear());
 		update.setImage(book.getImage());
+
+		update.setPublisher(book.getPublisher());
+		update.setAuthors(book.getAuthors());
+		update.setGenres(book.getGenres());
 		return books.save(update);
 	}
 }
