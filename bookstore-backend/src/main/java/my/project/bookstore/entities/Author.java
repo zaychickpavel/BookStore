@@ -29,7 +29,7 @@ public class Author {
 	private String description;
 
 	@Column(name = "image")
-	private byte[] image;
+	private String image;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "authors")
@@ -59,11 +59,11 @@ public class Author {
 		this.description = description;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

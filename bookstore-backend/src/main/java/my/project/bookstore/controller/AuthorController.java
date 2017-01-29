@@ -1,4 +1,4 @@
-package my.project.authorstore.controller;
+package my.project.bookstore.controller;
 
 import my.project.bookstore.entities.Author;
 import my.project.bookstore.repositories.AuthorRepository;
@@ -37,8 +37,8 @@ public class AuthorController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Author add(@RequestBody Author book) {
-		return authors.save(book);
+	public Author add(@RequestBody Author author) {
+		return authors.save(author);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "{id}")

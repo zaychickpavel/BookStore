@@ -1,12 +1,12 @@
 import {Injectable}    from '@angular/core';
 import {Headers, Http, Response, RequestOptions} from '@angular/http';
 
-import {Book} from '../models/book';
+import {Genre} from '../models/genre';
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class BookService {
-	private booksUrl = 'http://localhost:8080/book';
+export class GenreService {
+	private genresUrl = 'http://localhost:8080/genre';
 
 	headers: Headers;
 	options: RequestOptions;
@@ -16,35 +16,35 @@ export class BookService {
 		this.options = new RequestOptions({headers: this.headers});
 	}
 
-	getAll(): Observable<Book[]> {
-		return this.http.get(this.booksUrl)
+	getAll(): Observable<Genre[]> {
+		return this.http.get(this.genresUrl)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	get(id: number): Observable<Book> {
-		const url = `${this.booksUrl}/${id}`;
+	get(id: number): Observable<Genre> {
+		const url = `${this.genresUrl}/${id}`;
 		return this.http.get(url)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	update(book: Book): Observable<Book> {
-		const url = `${this.booksUrl}/${book.id}`;
-		return this.http.put(url, JSON.stringify(book), this.options)
+	update(genre: Genre): Observable<Genre> {
+		const url = `${this.genresUrl}/${genre.id}`;
+		return this.http.put(url, JSON.stringify(genre), this.options)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	add(book: Book): Observable<Book> {
+	add(genre: Genre): Observable<Genre> {
 		return this.http
-			.post(this.booksUrl, JSON.stringify(book), this.options)
+			.post(this.genresUrl, JSON.stringify(genre), this.options)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
 	delete(id: number): Observable<void> {
-		const url = `${this.booksUrl}/${id}`;
+		const url = `${this.genresUrl}/${id}`;
 		return this.http
 			.delete(url, this.options)
 			.catch(this.handleError);

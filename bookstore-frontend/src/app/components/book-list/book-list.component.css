@@ -1,0 +1,27 @@
+
+
+.book-list {
+	/*min-height: 50rem; */
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+	background-color: #f7f7f7;
+}
+
+
+.book {
+	float: left;
+	/*width: 33.333%;*/
+	padding: .75rem;
+	margin-bottom: 2rem;
+	border: 0;
+	height: 50rem;
+	margin-left: 4rem;
+	margin-right: 4rem;
+}
+.book img {
+	margin-bottom: .75rem;
+	max-height: 400px;
+}
+
+
+

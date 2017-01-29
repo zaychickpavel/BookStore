@@ -1,6 +1,5 @@
-export class Author {
+export interface BookStoreEntityInterface {
 	id: number;
 	name: string;
-	description: string;
 	image: string;
 }

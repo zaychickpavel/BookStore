@@ -23,7 +23,7 @@ public class Publisher {
 	private String description;
 
 	@Column(name = "image")
-	private byte[] image;
+	private String image;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "publisher")
@@ -53,11 +53,11 @@ public class Publisher {
 		this.description = description;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

@@ -1,12 +1,12 @@
 import {Injectable}    from '@angular/core';
 import {Headers, Http, Response, RequestOptions} from '@angular/http';
 
-import {Book} from '../models/book';
+import {Author} from '../models/author';
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class BookService {
-	private booksUrl = 'http://localhost:8080/book';
+export class AuthorService {
+	private authorsUrl = 'http://localhost:8080/author';
 
 	headers: Headers;
 	options: RequestOptions;
@@ -16,35 +16,35 @@ export class BookService {
 		this.options = new RequestOptions({headers: this.headers});
 	}
 
-	getAll(): Observable<Book[]> {
-		return this.http.get(this.booksUrl)
+	getAll(): Observable<Author[]> {
+		return this.http.get(this.authorsUrl)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	get(id: number): Observable<Book> {
-		const url = `${this.booksUrl}/${id}`;
+	get(id: number): Observable<Author> {
+		const url = `${this.authorsUrl}/${id}`;
 		return this.http.get(url)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	update(book: Book): Observable<Book> {
-		const url = `${this.booksUrl}/${book.id}`;
-		return this.http.put(url, JSON.stringify(book), this.options)
+	update(author: Author): Observable<Author> {
+		const url = `${this.authorsUrl}/${author.id}`;
+		return this.http.put(url, JSON.stringify(author), this.options)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
-	add(book: Book): Observable<Book> {
+	add(author: Author): Observable<Author> {
 		return this.http
-			.post(this.booksUrl, JSON.stringify(book), this.options)
+			.post(this.authorsUrl, JSON.stringify(author), this.options)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
 
 	delete(id: number): Observable<void> {
-		const url = `${this.booksUrl}/${id}`;
+		const url = `${this.authorsUrl}/${id}`;
 		return this.http
 			.delete(url, this.options)
 			.catch(this.handleError);

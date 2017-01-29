@@ -1,0 +1,183 @@
+<div class="container">
+	<hr class="book-divider">
+
+
+
+	<div class="row book" *ngIf="book && !editMode">
+		<div class="col-md-7 col-md-push-5">
+			<h2 class="book-heading">{{book.name}}</h2>
+			<div *ngIf="book.authors">
+				<p *ngFor="let author of book.authors">{{author.name}}</p>
+			</div>
+			<hr class="book-divider">
+			<p class="lead">{{book.description}}</p>
+			<hr class="book-divider">
+			<div class="row" *ngIf="book.publisher">
+				<div class="col-md-4">
+					Издательство
+				</div>
+				<div class="col-md-4">
+					{{book.publisher.name}}
+				</div>
+			</div>
+
+			<div class="row" *ngIf="book.publishingYear">
+				<div class="col-md-4">
+					Год издания
+				</div>
+				<div class="col-md-4">
+					{{book.publishingYear}}
+				</div>
+			</div>
+
+			<div class="row" *ngIf="book.numberOfPages">
+				<div class="col-md-4">
+					Страниц
+				</div>
+				<div class="col-md-4">
+					{{book.numberOfPages}}
+				</div>
+			</div>
+
+			<div class="row" *ngIf="book.isbn">
+				<div class="col-md-4">
+					ISBN
+				</div>
+				<div class="col-md-4">
+					{{book.isbn}}
+				</div>
+			</div>
+
+
+			<hr class="book-divider">
+			<div>
+				<button type="button" class="btn btn-primary" (click)="edit()">Изменить</button>
+				<button type="button" class="btn btn-primary" (click)="delete()">Удалить</button>
+				<button type="button" class="btn btn-primary" (click)="back()">Назад</button>
+			</div>
+		</div>
+		<div class="col-md-5 col-md-pull-7">
+			<img class="img-responsive center-block" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">
+		</div>
+
+
+	</div>
+
+	<div class="row book" *ngIf="book && editMode">
+		<div class="col-md-7 col-md-push-5">
+			<h2 *ngIf="book.name" class="book-heading">{{book.name}}</h2>
+			<hr class="book-divider">
+
+			<form #bookForm="ngForm" (ngSubmit)="save()">
+				<div class="form-group">
+					<label for="name">Название</label>
+					<input class="form-control" id="name" required [(ngModel)]="book.name"
+						   name="name" #name="ngModel"/>
+				</div>
+
+
+				<div class="form-group">
+					<label for="author">Автор</label>
+					<select multiple id="author" class="form-control"
+							name="author"
+							[(ngModel)]="book.authors"
+							#author="ngModel">
+						<option *ngFor="let a of authors" [ngValue]="a" [selected]="setSelectedAuthor(a)">{{a.name}}
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="genre">Жанры</label>
+					<select multiple id="genre" class="form-control"
+							name="genre"
+							[(ngModel)]="book.genres"
+							#genre="ngModel">
+						<option *ngFor="let g of genres" [ngValue]="g" [selected]="setSelectedGenre(g)">{{g.name}}
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="publisher">Издательство</label>
+					<select id="publisher" class="form-control"
+							name="publisher"
+							[(ngModel)]="book.publisher"
+							#publisher="ngModel">
+						<option [ngValue]="null">Выберите издательство</option>
+
+						<option *ngFor="let p of publishers" [ngValue]="p"
+								[selected]="(book.publisher != null) && (p.id === book.publisher.id)">{{p.name}}
+						</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="description">Описание</label>
+					<textarea class="form-control" id="description" [(ngModel)]="book.description"
+							  name="description" #description="ngModel" rows="5"></textarea>
+				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-4">
+							<label for="publishingYear">Год издания</label>
+						</div>
+						<div class="col-md-4">
+							<input class="form-control" id="publishingYear" [(ngModel)]="book.publishingYear"
+								   name="publishingYear" #publishingYear="ngModel"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-4">
+							<label for="numberOfPages">Страниц</label>
+						</div>
+						<div class="col-md-4">
+							<input class="form-control" id="numberOfPages" [(ngModel)]="book.numberOfPages"
+								   name="numberOfPages" #numberOfPages="ngModel"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-4">
+							<label for="isbn">ISBN</label>
+						</div>
+						<div class="col-md-4">
+							<input class="form-control" id="isbn" [(ngModel)]="book.isbn"
+								   name="isbn" #isbn="ngModel"/>
+						</div>
+					</div>
+				</div>
+
+
+				<div>
+					<button type="submit" class="btn btn-primary" (submit)="save()">Сохранить</button>
+					<button type="button" class="btn btn-primary" (click)="cancel()">Отменить</button>
+				</div>
+
+			</form>
+
+
+			<hr class="book-divider">
+
+
+		</div>
+		<div class="col-md-5 col-md-pull-7">
+			<img class="img-responsive center-block" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">
+			<hr class="book-divider">
+			<div class="text-center">
+				<label class="btn btn-primary btn-file">
+					Выбрать изображение <input class="choose-file" accept="image/jpeg" type="file" hidden #choseImage
+											   (change)="change(choseImage.files)">
+				</label>
+			</div>
+		</div>
+
+	</div>
+	<hr class="book-divider">
+</div>

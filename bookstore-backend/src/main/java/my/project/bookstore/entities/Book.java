@@ -43,7 +43,7 @@ public class Book {
 	private String description;
 
 	@Column(name = "image")
-	private byte[] image;
+	private String image;
 
 	@ManyToOne
 	@JoinColumn(name = "publisher_id")
@@ -117,11 +117,11 @@ public class Book {
 		this.description = description;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -159,7 +159,7 @@ public class Book {
 				", numberOfPages=" + numberOfPages +
 				", isbn='" + isbn + '\'' +
 				", description='" + description + '\'' +
-				", image=" + Arrays.toString(image) +
+				", image=" + image +
 				'}';
 	}
 }

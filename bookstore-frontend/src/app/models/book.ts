@@ -1,9 +1,10 @@
 import {Publisher} from "./publisher";
 import {Author} from "./author";
 import {Genre} from "./genre";
+import {BookStoreEntityInterface} from "./bookstore-entity-interface";
 
 
-export class Book {
+export class Book implements BookStoreEntityInterface{
 	id: number;
 	name: string;
 	originalName: string;
@@ -11,7 +12,7 @@ export class Book {
 	numberOfPages: number;
 	isbn: string;
 	description: string;
-	image: any[];
+	image: string;
 	publisher: Publisher;
 	authors: Author[];
 	genres: Genre[];
