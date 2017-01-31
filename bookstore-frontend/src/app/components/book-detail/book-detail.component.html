@@ -110,6 +110,16 @@
 								[selected]="(book.publisher != null) && (p.id === book.publisher.id)">{{p.name}}
 						</option>
 					</select>
+					{{publisherItems}}
+						<ng-select *ngIf="publisherItems.length > 0"
+						           [active]="getCurrentPublisher()"
+						           [allowClear]="true"
+						           [items]= "publisherItems"
+						           (data)="refreshPublisher($event)"
+						           placeholder="Выберите издательство">
+						</ng-select>
+						<p></p>
+						<pre>{{book.publisher}}</pre>
 				</div>
 
 				<div class="form-group">
