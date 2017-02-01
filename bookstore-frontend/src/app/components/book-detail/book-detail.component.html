@@ -4,7 +4,7 @@
 
 
 	<div class="row book" *ngIf="book && !editMode">
-		<div class="col-md-7 col-md-push-5">
+		<div class="col-md-7 push-md-5">
 			<h2 class="book-heading">{{book.name}}</h2>
 			<div *ngIf="book.authors">
 				<p *ngFor="let author of book.authors">{{author.name}}</p>
@@ -56,7 +56,7 @@
 				<button type="button" class="btn btn-primary" (click)="back()">Назад</button>
 			</div>
 		</div>
-		<div class="col-md-5 col-md-pull-7">
+		<div class="col-md-5 pull-md-7">
 			<img class="img-responsive center-block" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">
 		</div>
 
@@ -64,7 +64,7 @@
 	</div>
 
 	<div class="row book" *ngIf="book && editMode">
-		<div class="col-md-7 col-md-push-5">
+		<div class="col-md-7 push-md-5">
 			<h2 *ngIf="book.name" class="book-heading">{{book.name}}</h2>
 			<hr class="book-divider">
 
@@ -169,16 +169,15 @@
 
 			</form>
 
+			<p-dropdown [options]="publisherItems" [(ngModel)]="book.publisher" filter="filter" #city="ngModel"></p-dropdown>
 
-
-			<p-dropdown [options]="cities" [(ngModel)]="selectedCity" filter="filter" #city="ngModel"></p-dropdown>
 
 
 			<hr class="book-divider">
 
 
 		</div>
-		<div class="col-md-5 col-md-pull-7">
+		<div class="col-md-5 pull-md-7">
 			<img class="img-responsive center-block" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">
 			<hr class="book-divider">
 			<div class="text-center">

@@ -1,9 +1,7 @@
-<div class="container">
-	<div class="row row-offcanvas row-offcanvas-right text-muted">
-
-		<!--<div class="col-xs-12 col-sm-9">-->
-		<div class="row book-list">
-			<div class="col-xs-6 col-lg-3 text-center book img-thumbnail" *ngFor="let book of books">
+<div class="book-list text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="card book text-center" *ngFor="let book of books">
 				<img class="" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">
 				<p>
 					<a [routerLink]="['/book-detail', book.id]" class="">{{book.name}}</a>
@@ -15,6 +13,22 @@
 				</div>
 			</div>
 		</div>
-		<!--</div>-->
 	</div>
 </div>
+
+	<!--<div class="row row-offcanvas row-offcanvas-right text-muted">-->
+
+		<!--<div class="row book-list">-->
+			<!--<div class="col-xs-6 col-lg-3 text-center book img-thumbnail" *ngFor="let book of books">-->
+				<!--<img class="" src="{{book.image ? book.image : 'img/book.png'}}" alt="Book">-->
+				<!--<p>-->
+					<!--<a [routerLink]="['/book-detail', book.id]" class="">{{book.name}}</a>-->
+				<!--</p>-->
+				<!--<div *ngIf="book.authors">-->
+					<!--<div *ngFor="let author of book.authors">-->
+						<!--<span class="">{{author.name}}</span>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
