@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 
+
+
 @Component({
 	moduleId: module.id,
 	selector: 'bookstore-app',
@@ -7,6 +9,12 @@ import {Component} from '@angular/core';
 })
 
 export class AppComponent {
+
+
+
+
+
+
 	public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
 		'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
 		'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',

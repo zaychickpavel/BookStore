@@ -11,6 +11,7 @@ import {Genre} from "../../models/genre";
 import {PublisherService} from "../../services/publisher.service";
 import {Publisher} from "../../models/publisher";
 
+import {SelectItem} from 'primeng/primeng';
 
 @Component({
 	moduleId: module.id,
@@ -35,6 +36,10 @@ export class BookDetailComponent implements OnInit {
 	private genreItems:Array<any> = [];
 
 
+	cities: SelectItem[] = [];
+	selectedCity: string;
+
+
 	constructor(private bookService:BookService,
 				private authorService:AuthorService,
 				private genreService:GenreService,
@@ -43,7 +48,15 @@ export class BookDetailComponent implements OnInit {
 				private changeDetectorRef:ChangeDetectorRef,
 				private location:Location,
 				private router:Router) {
-	}
+
+			this.cities = [];
+			this.cities.push({label:'Select City', value:null});
+			this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
+			this.cities.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
+			this.cities.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});
+			this.cities.push({label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}});
+			this.cities.push({label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}});
+		}
 
 
 	private getAuthors() {
@@ -185,7 +198,7 @@ export class BookDetailComponent implements OnInit {
 		return false;
 	}
 
-
+	                /*
 	public refreshPublisher(value:any):void {
 		this.setBookPublisher(value.id);
 	}
@@ -206,7 +219,7 @@ export class BookDetailComponent implements OnInit {
 		} else {
 			return null;
 		}
-	}
+	}     */
 
 
 }

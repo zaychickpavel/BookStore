@@ -98,29 +98,24 @@
 					</select>
 				</div>
 
-				<div class="form-group">
-					<label for="publisher">Издательство</label>
-					<select id="publisher" class="form-control"
-							name="publisher"
-							[(ngModel)]="book.publisher"
-							#publisher="ngModel">
-						<option [ngValue]="null">Выберите издательство</option>
 
-						<option *ngFor="let p of publishers" [ngValue]="p"
-								[selected]="(book.publisher != null) && (p.id === book.publisher.id)">{{p.name}}
-						</option>
-					</select>
-					{{publisherItems}}
-						<ng-select *ngIf="publisherItems.length > 0"
-						           [active]="getCurrentPublisher()"
-						           [allowClear]="true"
-						           [items]= "publisherItems"
-						           (data)="refreshPublisher($event)"
-						           placeholder="Выберите издательство">
-						</ng-select>
-						<p></p>
-						<pre>{{book.publisher}}</pre>
-				</div>
+				<!--<div class="form-group">-->
+					<!--<label for="publisher">Издательство</label>-->
+					<!--<select id="publisher" class="form-control"-->
+							<!--name="publisher"-->
+							<!--[(ngModel)]="book.publisher"-->
+							<!--#publisher="ngModel">-->
+						<!--<option [ngValue]="null">Выберите издательство</option>-->
+
+						<!--<option *ngFor="let p of publishers" [ngValue]="p"-->
+								<!--[selected]="(book.publisher != null) && (p.id === book.publisher.id)">{{p.name}}-->
+						<!--</option>-->
+					<!--</select>-->
+					<!--{{publisherItems}}-->
+						<!--<p></p>-->
+						<!--<pre>{{book.publisher}}</pre>-->
+				<!--</div>-->
+
 
 				<div class="form-group">
 					<label for="description">Описание</label>
@@ -170,7 +165,13 @@
 					<button type="button" class="btn btn-primary" (click)="cancel()">Отменить</button>
 				</div>
 
+
+
 			</form>
+
+
+
+			<p-dropdown [options]="cities" [(ngModel)]="selectedCity" filter="filter" #city="ngModel"></p-dropdown>
 
 
 			<hr class="book-divider">
