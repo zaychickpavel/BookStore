@@ -21,7 +21,6 @@ import {SelectItem} from 'primeng/primeng';
 })
 
 export class BookDetailComponent implements OnInit {
-	@Input()
 	book:Book;
 	errorMessage:string;
 	editMode:boolean = false;
@@ -108,6 +107,7 @@ export class BookDetailComponent implements OnInit {
 			this.getBook(id);
 			this.newBook = false;
 		} else {
+			// new book
 			this.book = new Book();
 			this.editMode = true;
 			this.newBook = true;
