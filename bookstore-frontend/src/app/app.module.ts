@@ -14,11 +14,11 @@ import {AuthorService} from "./services/author.service";
 import {GenreService} from "./services/genre.service";
 import {PublisherService} from "./services/publisher.service";
 
-import {DropdownModule} from 'primeng/primeng';
+import {DropdownModule, MultiSelectModule, InputTextareaModule} from 'primeng/primeng';
 
 
 @NgModule({
-	imports: [BrowserModule, HttpModule, AppRoutingModule, FormsModule, DropdownModule],
+	imports: [BrowserModule, HttpModule, AppRoutingModule, FormsModule, DropdownModule, MultiSelectModule, InputTextareaModule],
 	declarations: [AppComponent, BookListComponent, BookDetailComponent],
 	providers: [BookService, AuthorService, GenreService, PublisherService],
 	bootstrap: [AppComponent]

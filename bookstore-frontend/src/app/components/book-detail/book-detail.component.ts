@@ -30,11 +30,13 @@ export class BookDetailComponent implements OnInit {
 	genres:Genre[] = [];
 	publishers:Publisher[] = [];
 
-	private authorItems:Array<any> = [];
+	//private authorItems:Array<any> = [];
 	// private publisherItems:Array<any> = [];
-	private genreItems:Array<any> = [];
+	//private genreItems:Array<any> = [];
 
 	publisherItems: SelectItem[] = [];
+	authorItems: SelectItem[] = [];
+	genreItems: SelectItem[] = [];
 
 
 	constructor(private bookService:BookService,
@@ -49,34 +51,37 @@ export class BookDetailComponent implements OnInit {
 
 
 	private getAuthors() {
+		this.authorItems = [];
+
 		this.authorService.getAll()
 			.subscribe(
 				authors => this.authors = authors,
 				error => this.errorMessage = <any>error,
 				() => this.authors.forEach((author:Author) => {
 					this.authorItems.push({
-						id: author.id,
-						text: author.name
+						label: author.name,
+						value: author
 					});
 				}));
 	}
 
 	private getGenres() {
+		this.genreItems = [];
+
 		this.genreService.getAll()
 			.subscribe(
 				genres => this.genres = genres,
 				error => this.errorMessage = <any>error,
 				() => this.genres.forEach((genre:Genre) => {
 					this.genreItems.push({
-						id: genre.id,
-						text: genre.name
+						label: genre.name,
+						value: genre
 					});
 				}));
 	}
 
 	private getPublishers() {
 		this.publisherItems = [{label: "Выберите издательство", value: null}];
-
 
 		this.publisherService.getAll()
 			.subscribe(
@@ -169,27 +174,27 @@ export class BookDetailComponent implements OnInit {
 		this.location.back();
 	}
 
-	setSelectedAuthor(author:Author):boolean {
-		if (this.book.authors != null) {
-			for (var a of this.book.authors) {
-				if (a.id == author.id) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	setSelectedGenre(genre:Genre):boolean {
-		if (this.book.genres != null) {
-			for (var a of this.book.genres) {
-				if (a.id == genre.id) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	//setSelectedAuthor(author:Author):boolean {
+	//	if (this.book.authors != null) {
+	//		for (var a of this.book.authors) {
+	//			if (a.id == author.id) {
+	//				return true;
+	//			}
+	//		}
+	//	}
+	//	return false;
+	//}
+	//
+	//setSelectedGenre(genre:Genre):boolean {
+	//	if (this.book.genres != null) {
+	//		for (var a of this.book.genres) {
+	//			if (a.id == genre.id) {
+	//				return true;
+	//			}
+	//		}
+	//	}
+	//	return false;
+	//}
 
 	                /*
 	public refreshPublisher(value:any):void {
